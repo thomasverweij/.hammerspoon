@@ -53,7 +53,7 @@ menuTable = {
   {title = "-"},
   {title = "Home", disabled = true },
   {title = "Toggle lights", shortcut = "o", fn = function() 
-      hs.http.asyncPost("http://10.200.200.4:8123/api/services/switch/toggle", "{\"entity_id\": \"switch.niet_bed\"}",  {Authorization=hass_token}, function() end)
+      hs.http.asyncPost("http://10.200.210.4:8123/api/services/switch/toggle", "{\"entity_id\": \"switch.niet_bed\"}",  {Authorization=hass_token}, function() end)
     end
   },
   {title = "-"},
