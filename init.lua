@@ -8,7 +8,7 @@ local hyper = {"ctrl", "alt", "cmd"}
 
 -- bluetooth of when sleeping
 
-require "bluetoothSleep"
+-- require "bluetoothSleep"
 
 -- Window manager
 
