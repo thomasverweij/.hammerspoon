@@ -32,24 +32,27 @@ hs.loadSpoon("RemoteHID")
 spoon.RemoteHID.port = "7638"           --server port (default: 7638)
 spoon.RemoteHID.interface = nil         --interface (default: nil)
 
-spoon.RemoteHID:bindHotKeys({           --bind hotkeys (available commands: start, stop):
-    start={hyper, "s"},
-    stop={hyper, "a"}
-})
+-- spoon.RemoteHID:bindHotKeys({           --bind hotkeys (available commands: start, stop):
+--     start={hyper, "s"},
+--     stop={hyper, "a"}
+-- })
 
 
 -- Menu 
 hass_token = hs.settings.get("secrets").hass_token
 
 menuTable = {
-  {title = "Applications", disabled = true},
-  {title = "Terminal", shortcut = "t", fn = function() hs.application.launchOrFocus('iTerm') end},
-  {title = "Visual Studio Code", shortcut = "c", fn = function() hs.application.launchOrFocus('Visual Studio Code') end},
-  {title = "Browser", shortcut = "b", fn = function() hs.application.launchOrFocus('Safari') end},
-  {title = "-"},
+  -- {title = "Applications", disabled = true},
+  -- {title = "Terminal", shortcut = "t", fn = function() hs.application.launchOrFocus('iTerm') end},
+  -- {title = "Visual Studio Code", shortcut = "c", fn = function() hs.application.launchOrFocus('Visual Studio Code') end},
+  -- {title = "Browser", shortcut = "b", fn = function() hs.application.launchOrFocus('Safari') end},
+  -- {title = "-"},
   {title = "Window management", disabled = true},
   {title = "All fullscreen", shortcut = "f", fn = function() spoon.MiroWindowsManager:_fullscreenAll() end},
   {title = "All middle screen", shortcut = "m", fn = function() spoon.MiroWindowsManager:_middleAll() end},
+  {title = "-"},
+  {title = "RemoteHID", disabled = true},
+  {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
   {title = "-"},
   {title = "Home", disabled = true },
   {title = "Toggle lights", shortcut = "o", fn = function() 
