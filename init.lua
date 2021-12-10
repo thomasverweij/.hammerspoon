@@ -61,7 +61,7 @@ menuTable = {
   },
   {title = "-"},
   {title = "System", disabled = true },
-  {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.lockScreen() end},
+  {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end}, -- Make sure system is configured to lock immediatly after starting screensaver
   {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
   {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end}
 }
