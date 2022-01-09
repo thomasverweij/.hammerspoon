@@ -39,7 +39,9 @@ spoon.RemoteHID.interface = nil         --interface (default: nil)
 
 
 -- Menu 
-hass_token = hs.settings.get("secrets").hass_token
+hassMenu = require("hassMenu")
+hassMenu.host = "10.200.210.4:8123"
+hassMenu.authToken = hs.settings.get("secrets").hass_token
 
 menuTable = {
   -- {title = "Applications", disabled = true},
@@ -55,10 +57,8 @@ menuTable = {
   {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
   {title = "-"},
   {title = "Home", disabled = true },
-  {title = "Toggle lights", shortcut = "o", fn = function() 
-      hs.http.asyncPost("http://10.200.210.4:8123/api/services/switch/toggle", "{\"entity_id\": \"switch.niet_bed\"}",  {Authorization=hass_token}, function() end)
-    end
-  },
+  {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
+  {title = "Scenes", menu = hassMenu.getMenuItems()},
   {title = "-"},
   {title = "System", disabled = true },
   {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end}, -- Make sure system is configured to lock immediatly after starting screensaver
