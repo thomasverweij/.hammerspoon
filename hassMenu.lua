@@ -23,6 +23,9 @@ end
 
 module.getMenuItems = function()
     scenes = module.getScenes()
+    if not scenes then
+        return nil
+    end
     return hs.fnutils.map(scenes, function(x) return {title = x, fn = function() module.turnOnScene(x) end} end)
 end    
 
