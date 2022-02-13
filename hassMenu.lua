@@ -5,7 +5,12 @@ module.host = ""
 module.getScenes = function()
     local status, body, headers = hs.http.get("http://" .. module.host .. "/api/states", {Authorization=module.authToken})
     if status == 200 then
-        local scenes = hs.fnutils.filter(hs.json.decode(body), function(x) return x.state == 'scening' end)
+        local scenes = hs.fnutils.filter(
+            hs.json.decode(body), 
+            function(x) 
+                return string.find(x.entity_id, "scene.") == 1
+            end
+        )
         local scenes_names = hs.fnutils.map(scenes, function(x) return x.entity_id end)
         return scenes_names
     else
