@@ -76,5 +76,11 @@ cmdDoublePress.action = function()
   menuItem:popupMenu(hs.mouse.absolutePosition(), true)
 end
 
+-- watch for new applications and resize
+hs.application.watcher.new(function(x,y,z) 
+  if y == 1 and z:mainWindow() then
+    spoon.MiroWindowsManager:_autoResizeWindow(z:mainWindow()) 
+  end 
+end):start()
 
 require("hs.ipc")
