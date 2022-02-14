@@ -78,9 +78,13 @@ end
 
 -- watch for new applications and resize
 hs.application.watcher.new(function(x,y,z) 
-  if y == 1 and z:mainWindow() then
-    spoon.MiroWindowsManager:_autoResizeWindow(z:mainWindow()) 
+  if y == 1 then
+    if z:mainWindow() then
+      spoon.MiroWindowsManager:_autoResizeWindow(z:mainWindow())
+    end
   end 
 end):start()
 
+
+-- enable cli
 require("hs.ipc")
