@@ -1,19 +1,11 @@
--- secrets
-
+-- load secrets
 require("secrets").load(".secrets.json")
 
 -- global hyper key
-
 local hyper = {"ctrl", "alt", "cmd"}
 
--- bluetooth of when sleeping
-
--- require "bluetoothSleep"
-
--- Window manager
-
+-- Window manager config
 hs.loadSpoon("MiroWindowsManager")
-
 hs.window.animationDuration = 0
 spoon.MiroWindowsManager:bindHotkeys({
   up = {hyper, "up"},
@@ -26,29 +18,19 @@ spoon.MiroWindowsManager:bindHotkeys({
   middleAll = {hyper,"t"}
 })
 
--- remotehid
-
+-- remotehid config
 hs.loadSpoon("RemoteHID")
 spoon.RemoteHID.port = "7638"           --server port (default: 7638)
 spoon.RemoteHID.interface = nil         --interface (default: nil)
 
--- spoon.RemoteHID:bindHotKeys({           --bind hotkeys (available commands: start, stop):
---     start={hyper, "s"},
---     stop={hyper, "a"}
--- })
-
-
--- Menu 
+-- hassMenu config 
 hassMenu = require("hassMenu")
 hassMenu.host = "10.200.210.4:8123"
 hassMenu.authToken = hs.settings.get("secrets").hass_token
 
+
+-- Menu
 menuTable = {
-  -- {title = "Applications", disabled = true},
-  -- {title = "Terminal", shortcut = "t", fn = function() hs.application.launchOrFocus('iTerm') end},
-  -- {title = "Visual Studio Code", shortcut = "c", fn = function() hs.application.launchOrFocus('Visual Studio Code') end},
-  -- {title = "Browser", shortcut = "b", fn = function() hs.application.launchOrFocus('Safari') end},
-  -- {title = "-"},
   {title = "Window management", disabled = true},
   {title = "All fullscreen", shortcut = "f", fn = function() spoon.MiroWindowsManager:_fullscreenAll() end},
   {title = "All middle screen", shortcut = "m", fn = function() spoon.MiroWindowsManager:_middleAll() end},
@@ -61,7 +43,7 @@ menuTable = {
   {title = "Scenes", menu = hassMenu.getMenuItems()},
   {title = "-"},
   {title = "System", disabled = true },
-  {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end}, -- Make sure system is configured to lock immediatly after starting screensaver
+  {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
   {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
   {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end}
 }
@@ -75,16 +57,6 @@ cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
   menuItem:popupMenu(hs.mouse.absolutePosition(), true)
 end
-
--- watch for new applications and resize
-hs.application.watcher.new(function(x,y,z) 
-  if y == 1 then
-    if z:mainWindow() then
-      spoon.MiroWindowsManager:_autoResizeWindow(z:mainWindow())
-    end
-  end 
-end):start()
-
 
 -- enable cli
 require("hs.ipc")
