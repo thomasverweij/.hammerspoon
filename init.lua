@@ -25,7 +25,7 @@ spoon.RemoteHID.interface = nil         --interface (default: nil)
 
 -- hassMenu config 
 hassMenu = require("hassMenu")
-hassMenu.host = "10.200.210.4:8123"
+hassMenu.host = "10.200.210.5:8123"
 hassMenu.authToken = hs.settings.get("secrets").hass_token
 
 
