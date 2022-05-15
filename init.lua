@@ -64,3 +64,17 @@ end
 
 -- enable cli
 require("hs.ipc")
+
+-- switching input devices when connecting to dock
+function usb_callback(e)
+  if e.eventType == "added" and e.productID == 2082 then
+    inputSwitch.connect(inputSwitch.keyboard)
+    inputSwitch.connect(inputSwitch.trackpad)
+  elseif e.eventType == "removed" and e.productID == 2082 then
+    inputSwitch.disconnect(inputSwitch.keyboard)
+    inputSwitch.disconnect(inputSwitch.trackpad)
+  end
+end
+ 
+usb_watcher = hs.usb.watcher.new(usb_callback):start()
+usb_watcher:start()
