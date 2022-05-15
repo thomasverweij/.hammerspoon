@@ -15,7 +15,7 @@ function connect_device(mac)
     t:start()
 end
 
-function switch_device_on(mac)
+function pair_device(mac)
     local t = hs.task.new("/usr/local/bin/blueutil", function(exitCode, stdOut, stdErr)
         log_error(exitCode, stdOut, stdErr)
         connect_device(mac)
@@ -25,6 +25,15 @@ end
 
 function switch_device_off(mac)
     local t = hs.task.new("/usr/local/bin/blueutil", log_error, {"--unpair", mac})
+    t:start()
+end
+
+function switch_device_on(mac)
+    local t = hs.task.new("/usr/local/bin/blueutil", function(exitCode, stdOut, stdErr)
+        log_error(exitCode, stdOut, stdErr)
+        print("switch device on")
+        pair_device(mac)
+    end, {"--unpair", mac})
     t:start()
 end
 
