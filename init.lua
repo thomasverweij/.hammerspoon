@@ -29,6 +29,9 @@ hassMenu.host = "10.200.210.5:8123"
 hassMenu.authToken = hs.settings.get("secrets").hass_token
 
 
+-- inputSwitch config
+inputSwitch = require("inputSwitch")
+
 -- Menu
 menuTable = {
   {title = "Window management", disabled = true},
@@ -43,6 +46,7 @@ menuTable = {
   {title = "Scenes", menu = hassMenu.getMenuItems()},
   {title = "-"},
   {title = "System", disabled = true },
+  {title = "Toggle input", shortcut = "t", fn = function() inputSwitch:switch() end},
   {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
   {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
   {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end}
