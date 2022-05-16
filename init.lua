@@ -1,5 +1,6 @@
--- load secrets
-require("secrets").load(".secrets.json")
+-- load config
+require("config").load(".config.json")
+local config = hs.settings.get("config")
 
 -- global hyper key
 local hyper = {"ctrl", "alt", "cmd"}
@@ -25,12 +26,14 @@ spoon.RemoteHID.interface = nil         --interface (default: nil)
 
 -- hassMenu config 
 hassMenu = require("hassMenu")
-hassMenu.host = "10.200.210.5:8123"
-hassMenu.authToken = hs.settings.get("secrets").hass_token
+hassMenu.host = config.hass_host 
+hassMenu.authToken = config.hass_token
 
 
 -- inputSwitch config
 inputSwitch = require("inputSwitch")
+inputSwitch.devices = config.inputswitch_devices
+inputSwitch.watcher:start()
 
 -- Menu
 menuTable = {
@@ -46,7 +49,7 @@ menuTable = {
   {title = "Scenes", menu = hassMenu.getMenuItems()},
   {title = "-"},
   {title = "System", disabled = true },
-  {title = "Toggle input", shortcut = "t", fn = function() inputSwitch:switch() end},
+  {title = "Toggle input devices", shortcut = "t", fn = function() inputSwitch:switch() end},
   {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
   {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
   {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end}
@@ -56,6 +59,8 @@ menuItem = hs.menubar.new(false)
 menuItem:setTitle('hs')
 menuItem:setMenu(menuTable)
 
+-- configure doublepress command key
+
 cmdDoublePress = require("cmdDoublePress")
 cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
@@ -64,17 +69,3 @@ end
 
 -- enable cli
 require("hs.ipc")
-
--- switching input devices when connecting to dock
-function usb_callback(e)
-  if e.eventType == "added" and e.productID == 2082 then
-    inputSwitch.connect(inputSwitch.keyboard)
-    inputSwitch.connect(inputSwitch.trackpad)
-  elseif e.eventType == "removed" and e.productID == 2082 then
-    inputSwitch.disconnect(inputSwitch.keyboard)
-    inputSwitch.disconnect(inputSwitch.trackpad)
-  end
-end
- 
-usb_watcher = hs.usb.watcher.new(usb_callback):start()
-usb_watcher:start()

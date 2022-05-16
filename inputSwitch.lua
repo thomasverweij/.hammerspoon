@@ -1,8 +1,8 @@
 require "string"
 
 module = {}
-module.keyboard = "c0:a5:3e:05:7f:93"
-module.trackpad = "a8:91:3d:e5:a4:bb"
+module.devices = {"c0:a5:3e:05:7f:93", "a8:91:3d:e5:a4:bb"}
+module.usbwatcher_productid = 2082
 
 function log_error(exitCode, stdOut, stdErr)
     if exitCode ~= 0 then
@@ -51,20 +51,34 @@ function switch_device(mac)
 end
 
 module.connect = function(mac)
-    print("connecting " .. mac)
     switch_device_on(mac)
 end
 
 module.disconnect = function(mac)
-    print("disconnecting " .. mac)
     switch_device_off(mac)
 end
 
 module.switch = function()
-    print("switching keyboard")
-    switch_device(module.keyboard)
-    print("switching trackpad")
-    switch_device(module.trackpad)
+    hs.fnutils.each(module.devices, function(d)
+        print("switching " .. d)
+        switch_device(d)
+    end)
 end
+
+function usb_callback(e)
+    if e.eventType == "added" and e.productID == module.usbwatcher_productid then
+        hs.fnutils.each(module.devices, function(d)
+            print("connecting " .. d)
+            module.connect(d)
+        end)
+    elseif e.eventType == "removed" and e.productID == module.usbwatcher_productid then
+        hs.fnutils.each(module.devices, function(d)
+            print("disconnecting " .. d)
+            module.disconnect(d)
+        end)
+    end
+  end
+   
+module.watcher = hs.usb.watcher.new(usb_callback)
 
 return module
