@@ -8,6 +8,7 @@ local hyper = {"ctrl", "alt", "cmd"}
 -- Window manager config
 hs.loadSpoon("MiroWindowsManager")
 hs.window.animationDuration = 0
+spoon.MiroWindowsManager.ultrawideMonitor = config.wm_ultrawide
 spoon.MiroWindowsManager:bindHotkeys({
   up = {hyper, "up"},
   right = {hyper, "right"},
