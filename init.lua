@@ -34,7 +34,7 @@ hassMenu.authToken = config.hass_token
 -- inputSwitch config
 inputSwitch = require("inputSwitch")
 inputSwitch.devices = config.inputswitch_devices
-inputSwitch.watcher:start()
+-- inputSwitch.watcher:start()
 hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
 
 -- Menu
