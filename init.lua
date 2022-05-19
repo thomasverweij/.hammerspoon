@@ -35,26 +35,26 @@ hassMenu.authToken = config.hass_token
 inputSwitch = require("inputSwitch")
 inputSwitch.devices = config.inputswitch_devices
 inputSwitch.watcher:start()
+hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
 
 -- Menu
 menuTable = {
-  {title = "Window management", disabled = true},
-  {title = "All fullscreen", shortcut = "f", fn = function() spoon.MiroWindowsManager:_fullscreenAll() end},
-  {title = "All middle screen", shortcut = "m", fn = function() spoon.MiroWindowsManager:_middleAll() end},
-  {title = "-"},
-  {title = "RemoteHID", disabled = true},
-  {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
-  {title = "-"},
-  {title = "Home", disabled = true },
-  {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
-  {title = "Scenes", menu = hassMenu.getMenuItems()},
-  {title = "-"},
-  {title = "System", disabled = true },
-  {title = "Toggle input devices", shortcut = "t", fn = function() inputSwitch:switch() end},
-  {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
-  {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
-  {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end}
-}
+    {title = "Window management", disabled = true},
+    {title = "All fullscreen", shortcut = "f", fn = function() spoon.MiroWindowsManager:_fullscreenAll() end},
+    {title = "All middle screen", shortcut = "m", fn = function() spoon.MiroWindowsManager:_middleAll() end},
+    {title = "-"},
+    {title = "RemoteHID", disabled = true},
+    {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
+    {title = "-"},
+    {title = "Home", disabled = true },
+    {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
+    {title = "Scenes", menu = hassMenu.getMenuItems()},
+    {title = "-"},
+    {title = "System", disabled = true },
+    {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
+    {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
+    {title = "Preferences", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end},
+  }
 
 menuItem = hs.menubar.new(false)
 menuItem:setTitle('hs')
