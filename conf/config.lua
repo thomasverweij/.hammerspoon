@@ -8,5 +8,5 @@ module.load = function(filename)
   end
 end
 
-module.load('conf/.config.lua')
+module.load('conf/config.json')
 return module
