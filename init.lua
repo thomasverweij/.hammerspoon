@@ -1,5 +1,5 @@
 -- load config
-require("config").load(".config.json")
+require("conf.config")
 local config = hs.settings.get("config")
 
 -- global hyper key
@@ -26,13 +26,13 @@ spoon.RemoteHID.port = "7638"           --server port (default: 7638)
 spoon.RemoteHID.interface = nil         --interface (default: nil)
 
 -- hassMenu config 
-hassMenu = require("hassMenu")
+hassMenu = require("lib.hassMenu")
 hassMenu.host = config.hass_host 
 hassMenu.authToken = config.hass_token
 
 
 -- inputSwitch config
-inputSwitch = require("inputSwitch")
+inputSwitch = require("lib.inputSwitch")
 inputSwitch.devices = config.inputswitch_devices
 -- inputSwitch.watcher:start()
 hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
@@ -62,7 +62,7 @@ menuItem:setMenu(menuTable)
 
 -- configure doublepress command key
 
-cmdDoublePress = require("cmdDoublePress")
+cmdDoublePress = require("lib.cmdDoublePress")
 cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
   menuItem:popupMenu(hs.mouse.absolutePosition(), true)
@@ -70,3 +70,6 @@ end
 
 -- enable cli
 require("hs.ipc")
+
+-- enable snapdrag
+require("lib.snapdrag")

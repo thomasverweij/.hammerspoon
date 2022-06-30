@@ -8,4 +8,5 @@ module.load = function(filename)
   end
 end
 
+module.load('conf/.config.lua')
 return module
