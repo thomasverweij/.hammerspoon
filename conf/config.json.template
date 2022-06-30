@@ -1,0 +1,5 @@
+{
+    "hass_host": "",    # host:port for homeassistant
+    "hass_token": "",   # access token for homeassistant
+    "wm_ultrawide": ""  # id of ultrawide monitor (alters wm behaviour)
+} 
