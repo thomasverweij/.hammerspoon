@@ -30,25 +30,27 @@ hassMenu = require("lib.hassMenu")
 hassMenu.host = config.hass_host 
 hassMenu.authToken = config.hass_token
 
+-- keybindings config
+require("lib.keyBindings")
 
 -- inputSwitch config
-inputSwitch = require("lib.inputSwitch")
-inputSwitch.devices = config.inputswitch_devices
+-- inputSwitch = require("lib.inputSwitch")
+-- inputSwitch.devices = config.inputswitch_devices
 -- inputSwitch.watcher:start()
-hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
+-- hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
 
 -- Menu
 menuTable = {
     {title = "Window management", disabled = true},
     {title = "All fullscreen", shortcut = "f", fn = function() spoon.MiroWindowsManager:_fullscreenAll() end},
     {title = "All middle screen", shortcut = "m", fn = function() spoon.MiroWindowsManager:_middleAll() end},
-    {title = "-"},
-    {title = "RemoteHID", disabled = true},
-    {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
-    {title = "-"},
-    {title = "Home", disabled = true },
-    {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
-    {title = "Scenes", menu = hassMenu.getMenuItems()},
+--     {title = "-"},
+--     {title = "RemoteHID", disabled = true},
+--     {title = "Start", shortcut = "r", fn = function() spoon.RemoteHID:start() end},
+--     {title = "-"},
+    -- {title = "Home", disabled = true },
+    -- {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
+--     {title = "Scenes", menu = hassMenu.getMenuItems()},
     {title = "-"},
     {title = "System", disabled = true },
     {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
