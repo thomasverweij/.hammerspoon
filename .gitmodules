@@ -1,6 +1,0 @@
-[submodule "Spoons/MiroWindowsManager.spoon"]
-	path = Spoons/MiroWindowsManager.spoon
-	url = https://github.com/thomasverweij/miro-windows-manager.git
-[submodule "Spoons/RemoteHID.spoon"]
-	path = Spoons/RemoteHID.spoon
-	url = https://github.com/thomasverweij/remotehid.git
