@@ -4,6 +4,8 @@ module.authToken = ""
 module.host = ""
 module.getScenes = function()
     local status, body, headers = hs.http.get("http://" .. module.host .. "/api/states", {Authorization=module.authToken})
+    print(status)
+
     if status == 200 then
         local scenes = hs.fnutils.filter(
             hs.json.decode(body), 

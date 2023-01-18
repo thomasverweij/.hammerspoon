@@ -8,5 +8,5 @@ module.load = function(filename)
   end
 end
 
-module.load('conf/config.json')
+module.load('/Users/thomas/Projects/thomasverweij/.hammerspoon/conf/config.json')
 return module
