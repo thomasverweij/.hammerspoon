@@ -30,6 +30,7 @@ require("lib.snapdrag")
 hassMenu = require("lib.hassMenu")
 hassMenu.host = config.hass_host 
 hassMenu.authToken = config.hass_token
+hassMenu.getScenes()
 
 -- inputSwitch config
 -- inputSwitch = require("lib.inputSwitch")
@@ -38,20 +39,22 @@ hassMenu.authToken = config.hass_token
 -- hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
 
 -- Menu
-menuTable = {
+menuTable = function() 
+  return {
     {title = "Window management", disabled = true},
     {title = "All fullscreen", shortcut = "f", fn = function() windowManager:_fullscreenAll() end},
     {title = "All middle screen", shortcut = "m", fn = function() windowManager:_middleAll() end},
     {title = "-"},
     {title = "Home", disabled = true },
     {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
-    -- {title = "Scenes", menu = hassMenu.getMenuItems()},
+    {title = "Scenes", menu = hassMenu.scenes},
     {title = "-"},
     {title = "System", disabled = true },
     {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
     {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
     {title = "Settings", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end},
   }
+end
 
 menuItem = hs.menubar.new(false)
 menuItem:setTitle('hs')
@@ -62,5 +65,6 @@ menuItem:setMenu(menuTable)
 cmdDoublePress = require("lib.cmdDoublePress")
 cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
+  menuItem:setMenu(menuTable)
   menuItem:popupMenu(hs.mouse.absolutePosition(), true)
 end
