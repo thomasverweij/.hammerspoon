@@ -50,9 +50,10 @@ menuTable = function()
     {title = "Scenes", menu = hassMenu.scenes},
     {title = "-"},
     {title = "System", disabled = true },
+    -- {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
+    {title = "Screenshot", shortcut = "s", fn = function() hs.application.launchOrFocus('screenshot') end},
     {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
-    {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
-    {title = "Settings", shortcut = "p", fn = function() hs.application.launchOrFocus('System Preferences') end},
+    {title = "Settings", shortcut = "p", fn = function() hs.application.launchOrFocus('System Settings') end},
   }
 end
 
