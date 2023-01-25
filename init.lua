@@ -27,7 +27,7 @@ windowManager:bindHotkeys({
 require("lib.snapdrag")
 
 -- hassMenu config 
-hassMenu = require("lib.hassMenu")
+local hassMenu = require("lib.hassMenu")
 hassMenu.host = config.hass_host 
 hassMenu.authToken = config.hass_token
 hassMenu.getScenes()
@@ -39,7 +39,7 @@ hassMenu.getScenes()
 -- hs.hotkey.bind(hyper, 'f12', inputSwitch.switch)
 
 -- Menu
-menuTable = function() 
+local menuTable = function() 
   return {
     {title = "Window management", disabled = true},
     {title = "All fullscreen", shortcut = "f", fn = function() windowManager:_fullscreenAll() end},
@@ -57,13 +57,13 @@ menuTable = function()
   }
 end
 
-menuItem = hs.menubar.new(false)
+local menuItem = hs.menubar.new(false)
 menuItem:setTitle('hs')
 menuItem:setMenu(menuTable)
 
 -- configure doublepress command key
 
-cmdDoublePress = require("lib.cmdDoublePress")
+local cmdDoublePress = require("lib.cmdDoublePress")
 cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
   menuItem:setMenu(menuTable)
