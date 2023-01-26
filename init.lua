@@ -46,7 +46,7 @@ local menuTable = function()
     {title = "All middle screen", shortcut = "m", fn = function() windowManager:_middleAll() end},
     {title = "-"},
     {title = "Home", disabled = true },
-    {title = "Toggle lights", shortcut = "o", fn = function() hassMenu.toggleLights() end},
+    {title = "Toggle lights", checked = hassMenu.lightState, shortcut = "o", fn = function() hassMenu.toggleLights() end},
     {title = "Scenes", menu = hassMenu.scenes},
     {title = "-"},
     {title = "System", disabled = true },
@@ -66,6 +66,7 @@ menuItem:setMenu(menuTable)
 local cmdDoublePress = require("lib.cmdDoublePress")
 cmdDoublePress.timeFrame = .3
 cmdDoublePress.action = function()
+  hassMenu.getLightState()
   menuItem:setMenu(menuTable)
   menuItem:popupMenu(hs.mouse.absolutePosition(), true)
 end
