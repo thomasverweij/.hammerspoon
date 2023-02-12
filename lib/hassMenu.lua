@@ -60,7 +60,7 @@ module.getLightState = function()
     return module.lightState
 end
 
--- local pollTimer = timer.new(5, module.getLightState)
--- pollTimer:start()
+local pollTimer = timer.new(30, module.getLightState)
+pollTimer:start()
 
 return module
