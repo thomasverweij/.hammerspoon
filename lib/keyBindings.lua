@@ -38,6 +38,11 @@ function keyboard_down()
     system_key('ILLUMINATION_DOWN')
 end
 
+function lock_system()
+    hs.caffeinate.startScreensaver()
+end
+
+
 
 bind_key(hotkey, '=', volume_up)
 bind_key(hotkey, '-', volume_down)
@@ -46,3 +51,5 @@ bind_key(hotkey, '1', brightness_down)
 bind_key(hotkey, '0', mute)
 bind_key(hotkey, '4', keyboard_up)
 bind_key(hotkey, '3', keyboard_down)
+bind_key(hotkey, 'l', lock_system)
+
