@@ -71,7 +71,6 @@ end
 
 --Setup drag start and dragging
 click_event = hs.eventtap.new({hs.eventtap.event.types.leftMouseDragged}, function(e)
-
 	--if drag is just starting...
 	if dragging == 0 then
 		dragging_window = get_window_under_mouse()
@@ -110,21 +109,9 @@ click_event = hs.eventtap.new({hs.eventtap.event.types.leftMouseDragged}, functi
 				dragging_window = nil
 			end
 
+		else 
+			dragging = -1
 		end
-	--else if drag is already going
-	--[[
-	else
-		if dragging_window ~= nil then
-			local dx = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaX)
-			local dy = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaY)
-
-			local m = hs.mouse.absolutePosition()
-			local mx = round(m.x)
-			local my = round(m.y)
-
-			print(' - dragging: ' .. mx .. "," .. my .. ". window id: " .. dragging_window:id())
-		end
-	]]--
 	end
 end)
 
