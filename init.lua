@@ -8,6 +8,9 @@ local hyper = {"ctrl", "alt", "cmd"}
 -- keybindings config
 require("lib.keyBindings")
 
+-- displaylink
+require("lib.displaylink")
+
 -- Window manager
 local windowManager = require("lib.windowManager")
 hs.window.animationDuration = 0
@@ -15,16 +18,14 @@ windowManager.ultrawideMonitor = config.wm_ultrawide
 windowManager:bindHotkeys({
   up = {hyper, "up"},
   right = {hyper, "right"},
-  down = {hyper, "down"},
   left = {hyper, "left"},
   fullscreen = {hyper, "f"},
   middle = {hyper, "g"},
-  fullscreenAll = {hyper,"r"},
-  middleAll = {hyper,"t"}
+  fullscreenAll = {hyper,"r"}
 })
 
--- enable snapdrag
-require("lib.snapdrag")
+-- snapdrag. disabled because of lack of multi monitor support
+-- require("lib.snapdrag")
 
 -- hassMenu config 
 local hassMenu = require("lib.hassMenu")

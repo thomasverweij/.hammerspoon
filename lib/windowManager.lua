@@ -55,7 +55,7 @@ obj.fullScreenSizes = {1, 4/3, 2}
 obj.GRID = {w = 24, h = 24}
 
 --- device id of ultra wide monitor (different fullscreen behavior)
-obj.ultrawideMonitor = 459085702
+obj.ultrawideMonitor = 3
 
 obj._pressed = {
   up = false,
@@ -169,16 +169,19 @@ function obj:_fullscreen()
   if hs.window.focusedWindow() then
     local win = hs.window.frontmostWindow()
       if win:screen():id() == self.ultrawideMonitor then
-        local id = win:id()
-        local screen = win:screen()
+        -- print(win:screen():id())
 
-        cell = hs.grid.get(win, screen)
-        cell.w = self.GRID.w / (4/3)
-        cell.h = self.GRID.h 
-        cell.x = (self.GRID.w - self.GRID.w / (4/3)) / 2
-        cell.y = (self.GRID.h - self.GRID.h) / 2
+        -- local id = win:id()
+        -- local screen = win:screen()
+
+        -- cell = hs.grid.get(win, screen)
+        -- cell.w = self.GRID.w / (4/3)
+        -- cell.h = self.GRID.h 
+        -- cell.x = (self.GRID.w - self.GRID.w / (4/3)) / 2
+        -- cell.y = (self.GRID.h - self.GRID.h) / 2
         
-        hs.grid.set(win, cell, screen)
+        -- hs.grid.set(win, cell, screen)
+        self:_middle()
     else
         win:maximize()
     end
@@ -225,6 +228,18 @@ function obj:_fullscreenAll()
   end
 end
 
+function obj:_leftAll()
+  for k,v in pairs(hs.window.visibleWindows()) do
+    v:left()
+  end
+end
+
+function obj:_rightAll()
+  for k,v in pairs(hs.window.visibleWindows()) do
+    v:right()
+  end
+end
+
 --- MiroWindowsManager:bindHotkeys()
 --- Method
 --- Binds hotkeys for Miro's Windows Manager
@@ -265,9 +280,9 @@ function obj:bindHotkeys(mapping)
   --   self._pressed.down = false
   -- end)
 
-  hs.hotkey.bind(mapping.down[1], mapping.down[2], function ()
-    self:_minimize()
-  end)
+  -- hs.hotkey.bind(mapping.down[1], mapping.down[2], function ()
+  --   self:_minimize()
+  -- end)
 
 
   hs.hotkey.bind(mapping.right[1], mapping.right[2], function ()
@@ -328,10 +343,9 @@ function obj:bindHotkeys(mapping)
     self:_fullscreenAll()
   end)
 
-  hs.hotkey.bind(mapping.middleAll[1], mapping.middleAll[2], function ()
-    self:_middleAll()
-  end)
-
+  -- hs.hotkey.bind(mapping.middleAll[1], mapping.middleAll[2], function ()
+  --   self:_middleAll()
+  -- end)
 end
 
 function obj:init()
