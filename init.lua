@@ -9,7 +9,7 @@ local hyper = {"ctrl", "alt", "cmd"}
 require("lib.keyBindings")
 
 -- displaylink
-require("lib.displaylink")
+local displaylink = require("lib.displaylink")
 
 -- Window manager
 local windowManager = require("lib.windowManager")
@@ -52,6 +52,7 @@ local menuTable = function()
     {title = "-"},
     {title = "System", disabled = true },
     -- {title = "Sleep", shortcut = "s", fn = function() hs.caffeinate.systemSleep() end},
+    {title = "DisplayLink", checked = displaylink.state, shortcut = "d", fn = function() displaylink.switchState() end},
     {title = "Screenshot", shortcut = "s", fn = function() hs.application.launchOrFocus('screenshot') end},
     {title = "Lock", shortcut = "l", fn = function() hs.caffeinate.startScreensaver() end},
     {title = "Settings", shortcut = "p", fn = function() hs.application.launchOrFocus('System Settings') end},

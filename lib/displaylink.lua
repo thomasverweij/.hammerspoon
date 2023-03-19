@@ -1,3 +1,5 @@
+module = {}
+module.state = true
 
 function displaylinkOn()
     hs.application.open("DisplayLink Manager")
@@ -30,12 +32,14 @@ function dockConnected()
     displaylinkOn()
     nightlightOff()
     fluxOn()
+    module.state = true
 end
 
 function dockDisconnected()
     displaylinkOff()
     nightlightOn()
     fluxOff()
+    module.state = false
 end
 
 function result_callback(rc, stdout, stderr)
@@ -55,5 +59,17 @@ function watcherFunction(event)
     end
 end
 
+module.switchState = function()
+    if module.state then
+        print('disconnect')
+        dockDisconnected()
+    else
+        print('connect')
+        dockConnected()
+    end
+end
+
 watcher = hs.usb.watcher.new(watcherFunction)
 watcher:start()
+
+return module
