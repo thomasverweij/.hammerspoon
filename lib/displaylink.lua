@@ -1,12 +1,12 @@
 module = {}
-module.state = true
+module.state = false
 
 function displaylinkOn()
     hs.application.open("DisplayLink Manager")
 end
 
 function displaylinkOff()
-    hs.application.find("Displaylink", false):kill()
+    hs.application.find("displaylinkuseragent", false):kill()
 end
 
 function fluxOff()
@@ -61,15 +61,24 @@ end
 
 module.switchState = function()
     if module.state then
-        print('disconnect')
         dockDisconnected()
     else
-        print('connect')
         dockConnected()
     end
 end
 
+function startUp()
+    local flux = hs.application.find('flux')
+    local dl = hs.application.find('displaylinkuseragent')
+    local dock = hs.fnutils.find(hs.usb.attachedDevices(), function(x) return x.productName == "Logi Dock" end)
+    if (not (flux and dl)) and dock then
+        dockConnected()
+    end
+end
+
+
 watcher = hs.usb.watcher.new(watcherFunction)
 watcher:start()
+startUp()
 
 return module
