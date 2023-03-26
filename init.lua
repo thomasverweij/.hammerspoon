@@ -13,16 +13,16 @@ local displaylink = require("lib.displaylink")
 
 -- Window manager
 local windowManager = require("lib.windowManager")
-hs.window.animationDuration = 0
-windowManager.ultrawideMonitor = config.wm_ultrawide
-windowManager:bindHotkeys({
-  up = {hyper, "up"},
-  right = {hyper, "right"},
-  left = {hyper, "left"},
-  fullscreen = {hyper, "f"},
-  middle = {hyper, "g"},
-  fullscreenAll = {hyper,"r"}
-})
+-- hs.window.animationDuration = 0
+-- windowManager.ultrawideMonitor = config.wm_ultrawide
+-- windowManager:bindHotkeys({
+--   up = {hyper, "up"},
+--   right = {hyper, "right"},
+--   left = {hyper, "left"},
+--   fullscreen = {hyper, "f"},
+--   middle = {hyper, "g"},
+--   fullscreenAll = {hyper,"r"}
+-- })
 
 -- snapdrag. disabled because of lack of multi monitor support
 -- require("lib.snapdrag")
@@ -44,7 +44,7 @@ local menuTable = function()
   return {
     {title = "Window management", disabled = true},
     {title = "All fullscreen", shortcut = "f", fn = function() windowManager:_fullscreenAll() end},
-    {title = "All middle screen", shortcut = "m", fn = function() windowManager:_middleAll() end},
+    -- {title = "All middle screen", shortcut = "m", fn = function() windowManager:_middleAll() end},
     {title = "-"},
     {title = "Home", disabled = true },
     {title = "Toggle lights", checked = hassMenu.lightState, shortcut = "o", fn = function() hassMenu.toggleLights() end},
