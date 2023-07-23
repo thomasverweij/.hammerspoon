@@ -14,7 +14,7 @@ module.turnOnScene = function(sceneId)
 end
 
 module.toggleLights = function()
-    hs.http.asyncPost("http://" .. module.host .. "/api/services/switch/toggle", "{\"entity_id\": \"switch.niet_bed\"}",  {Authorization=module.authToken}, function() 
+    hs.http.asyncPost("http://" .. module.host .. "/api/services/switch/toggle", "{\"entity_id\": \"switch.light_office\"}",  {Authorization=module.authToken}, function() 
         module.lightState = not module.lightState
     end)
 end
@@ -60,7 +60,28 @@ module.getLightState = function()
     return module.lightState
 end
 
+module.sonosVolumeUp = function()
+    request = [[
+        {"entity_id": "media_player.studio", "volume_level": "{{ state_attr('media_player.studio', 'volume_level') | float + 0.05 }}" }
+        ]]
+    hs.http.asyncPost("http://" .. module.host .. "/api/services/media_player/volume_set", request,  {Authorization=module.authToken}, function(status, body, headers)
+    print(body) end)
+end
+
+module.sonosVolumeDown = function()
+    request = [[
+        {"entity_id": "media_player.studio", "volume_level": "{{ state_attr('media_player.studio', 'volume_level') | float - 0.05 }}" }
+        ]]
+    hs.http.asyncPost("http://" .. module.host .. "/api/services/media_player/volume_set", request,  {Authorization=module.authToken}, function(x) end)
+end
+
+local hotkey = {'ctrl','alt','cmd'}
+
+hs.hotkey.bind(hotkey, '=', nil, module.sonosVolumeUp, module.sonosVolumeUp, module.sonosVolumeUp):enable()
+
+
 local pollTimer = timer.new(30, module.getLightState)
 pollTimer:start()
 
 return module
+
